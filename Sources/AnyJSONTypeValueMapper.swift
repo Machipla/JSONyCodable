@@ -26,6 +26,8 @@ internal extension AnyJSONTypeValueMapper{
             return mapString(from: rawValue) as! Type?
         }else if Type.self == Int.self{
             return mapInt(from: rawValue) as! Type?
+        }else if Type.self == UInt.self{
+            return mapUInt(from: rawValue) as! Type?
         }else if Type.self == Float.self{
             return mapFloat(from: rawValue) as! Type?
         }else if Type.self == Double.self{
@@ -62,6 +64,20 @@ private extension AnyJSONTypeValueMapper{
             return Int(asString)
         }else if let asNumberValue = value as? NSNumber{
             return asNumberValue.intValue
+        }
+        
+        return nil
+    }
+    
+    func mapUInt(from value:Any) -> UInt?{
+        if let asUIntValue = value as? UInt{
+            return asUIntValue
+        }else if let asStringConvertible = value as? LosslessStringConvertible{
+            return UInt(asStringConvertible.description)
+        }else if let asString = value as? String{
+            return UInt(asString)
+        }else if let asNumberValue = value as? NSNumber{
+            return asNumberValue.uintValue
         }
         
         return nil

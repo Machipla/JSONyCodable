@@ -13,6 +13,7 @@ import SugarLumpFoundation
 public enum AnyJSONType: AnyJSONTypeProtocol{
     case string(String)
     case int(Int)
+    case uint(UInt)
     case double(Double)
     case float(Float)
     case dictionary([String:AnyJSONType])
@@ -24,6 +25,7 @@ public enum AnyJSONType: AnyJSONTypeProtocol{
         switch self {
         case .string(let value):     return value
         case .int(let value):        return value
+        case .uint(let value):       return value
         case .double(let value):     return value
         case .float(let value):      return value
         case .dictionary(let value): return value.mapValues{ return $0.rawValue }.filteringNilValues()
@@ -43,6 +45,8 @@ public enum AnyJSONType: AnyJSONTypeProtocol{
         
         if let intValue = try? container.decode(Int.self){
             self = .int(intValue)
+        }else if let uintValue = try? container.decode(UInt.self){
+            self = .uint(uintValue)
         }else if let stringValue = try? container.decode(String.self){
             self = .string(stringValue)
         }else if let boolValue = try? container.decode(Bool.self){
@@ -65,6 +69,8 @@ public enum AnyJSONType: AnyJSONTypeProtocol{
             self = .string(stringValue)
         }else if let intValue = rawValue as? Int{
             self = .int(intValue)
+        }else if let uintValue = rawValue as? UInt{
+            self = .uint(uintValue)
         }else if let doubleValue = rawValue as? Double{
             self = .double(doubleValue)
         }else if let floatValue = rawValue as? Float{
@@ -88,10 +94,11 @@ public enum AnyJSONType: AnyJSONTypeProtocol{
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-
+        
         switch self {
         case .string(let value):        try container.encode(value)
         case .int(let value):           try container.encode(value)
+        case .uint(let value):          try container.encode(value)
         case .double(let value):        try container.encode(value)
         case .float(let value):         try container.encode(value)
         case .dictionary(let value):    try container.encode(value)
