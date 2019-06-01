@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name          = 'JSONyCodable'
   spec.homepage      = "https://github.com/Machipla/JSONyCodable"
-  spec.version       = '0.0.2'
+  spec.version       = '0.0.3'
   spec.platform      = :ios, "9.0"
   spec.authors       = 'Mario Chinchilla'
   spec.summary       = 'Making easier the decoding/encoding from/to JSON via Decodable/Encodable protocol!'

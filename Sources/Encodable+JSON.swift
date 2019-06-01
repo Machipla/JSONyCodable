@@ -18,4 +18,10 @@ public extension Encodable{
         
         return rawJSON
     }
+    
+    func asData(options: JSONSerialization.WritingOptions = []) throws -> Data {
+        let json = try asJSON()
+        guard let data = try? JSONSerialization.data(withJSONObject: json, options: options) else { throw JSONEncodingError.serializationFailed }
+        return data
+    }
 }
